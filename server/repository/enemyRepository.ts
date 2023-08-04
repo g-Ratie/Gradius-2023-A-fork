@@ -1,3 +1,4 @@
+import { enemyUsecase } from '$/usecase/enemyUsecase';
 import type { EnemyId } from '$/commonTypesWithClient/branded';
 import type { EnemyModel } from '$/commonTypesWithClient/models';
 import { EnemyIdParser } from '$/service/idParsers';
@@ -49,3 +50,14 @@ export const enemyRepository = {
     });
   },
 };
+
+setInterval(() => {
+  // make_enemy();
+  enemyUsecase.create_enemy();
+}, 9000);
+
+setInterval(() => {
+  // move_or_delete_enemy();
+  enemyUsecase.move_Enemy();
+  enemyUsecase.delete_off_screen_enemy();
+}, 100);
