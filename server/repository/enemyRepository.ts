@@ -1,8 +1,8 @@
-import { enemyUsecase } from '$/usecase/enemyUsecase';
 import type { EnemyId } from '$/commonTypesWithClient/branded';
 import type { EnemyModel } from '$/commonTypesWithClient/models';
 import { EnemyIdParser } from '$/service/idParsers';
 import { prismaClient } from '$/service/prismaClient';
+import { enemyUsecase } from '$/usecase/enemyUsecase';
 import type { Enemy } from '@prisma/client';
 import { z } from 'zod';
 
