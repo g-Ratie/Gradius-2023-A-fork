@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
+          cp .env.example .env
+          cp server/.env.example server/.env
+          cp server/prisma/.env.example server/prisma/.env
           cp docker/dev/.env.example docker/dev/.env
           docker-compose up -d
       - name: setup Node.js
@@ -31,9 +34,5 @@ jobs:
         if: steps.server-npm-cache.outputs.cache-hit != 'true'
       - run: npm run lint
       - run: npm run typecheck
-      - run: |
-          cp .env.example .env
-          cp server/.env.example server/.env
-          cp server/prisma/.env.example server/prisma/.env
       - run: npm test
       - run: npm test --prefix server
