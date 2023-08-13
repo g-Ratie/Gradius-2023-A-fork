@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Circle, Layer, Rect, Stage, Text } from 'react-konva';
 import { apiClient } from 'src/utils/apiClient';
 
-function App() {
+function App({ monitorId }: { monitorId: number }) {
   const windowWidth = Number(window.innerWidth);
   const windowHeight = Number(window.innerHeight);
 
@@ -79,23 +79,36 @@ function App() {
         />
 
         {newPlayerPosition.map((player, index) => (
-          <Circle key={index} x={player[0]} y={player[1]} width={50} height={50} fill="red" />
+          <Circle
+            key={index}
+            x={player[0] - monitorId * windowWidth}
+            y={player[1]}
+            width={50}
+            height={50}
+            fill="red"
+          />
         ))}
         {newGunPosition.map((gun, index) => (
-          <Circle key={index} radius={10} x={gun[0]} y={gun[1]} fill="green" />
+          <Circle
+            key={index}
+            radius={10}
+            x={gun[0] - monitorId * windowWidth}
+            y={gun[1]}
+            fill="green"
+          />
         ))}
         {newEnemyPosition.map((enemy, index) => (
           <React.Fragment key={index}>
             <Circle
               key={index}
-              x={enemy.pos.x}
+              x={enemy.pos.x - monitorId * windowWidth}
               y={enemy.pos.y}
               width={50}
               height={50}
               fill="blue"
             />
             <Text
-              x={enemy.pos.x}
+              x={enemy.pos.x - monitorId * windowWidth}
               y={enemy.pos.y}
               fontSize={15}
               fontFamily="Arial"

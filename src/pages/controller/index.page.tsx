@@ -32,7 +32,6 @@ const Home = () => {
       clearInterval(cance);
     };
   }, []); // 依存性配列は空にします。getsizeが変更されるとタイマーはリセットされません
-  if (!user) return <Loading visible />;
   const shoot = async () => {
     await apiClient.rooms.gunPosition.$post();
   };
