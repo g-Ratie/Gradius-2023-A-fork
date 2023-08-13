@@ -10,7 +10,7 @@ const Home = () => {
       {/* <div className={styles.container}>
         {/* 下記は簡易的に作ったモノです。削除してもらってかまいません */}
       {/* <h1 className={styles.word}>ここはgamescreenです</h1> */}
-      <App />
+      <App monitorId={0} />
       {/* </div> */}
     </>
   );
