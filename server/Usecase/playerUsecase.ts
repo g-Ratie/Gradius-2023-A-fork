@@ -76,6 +76,4 @@ export const playerUsecase = {
   getPlayerPos: async () => {
     return await playerRepository.getPlayers();
   },
-
-  //スコアとかどうしよう。
 };

@@ -9,4 +9,7 @@ export type Methods = {
   post: {
     reqBody: { moveDirection: MoveDirection; userId: UserId };
   };
+  delete: {
+    reqBody: { userId: UserId };
+  };
 };
