@@ -13,7 +13,7 @@ const Game = ({ monitorId }: { monitorId: number }) => {
   const [newPlayerPosition, setNewPlayerPosition] = useState<PlayerModel[]>([]);
   const [newGunPosition, setNewGunPosition] = useState<number[][]>([]);
   const [newEnemyPosition, setNewEnemyPosition] = useState<EnemyModel[]>([]);
-  const [shipImage] = useImage(staticPath.f_15j_png);
+  const [shipImage] = useImage(staticPath.player_png);
   const [enemyImage] = useImage(staticPath.enemy_png);
   const [bulletImage] = useImage(staticPath.bullet_png);
   //apiを叩いてプレイヤーと銃敵の位置を取得stateにセット
