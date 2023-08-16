@@ -13,7 +13,10 @@ export let gunPosition: number[][] = [[]];
 export const gunShot = async (userId: UserId) => {
   console.log('gunShot動作');
   const recentlyPlayerInfo = await playerRepository.read(userId);
-  gunPosition.push([recentlyPlayerInfo.pos.x, recentlyPlayerInfo.pos.y]);
+  gunPosition.push([
+    recentlyPlayerInfo.pos.x + recentlyPlayerInfo.radius * 2,
+    recentlyPlayerInfo.pos.y + recentlyPlayerInfo.radius,
+  ]);
 };
 
 setInterval(() => {

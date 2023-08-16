@@ -23,11 +23,11 @@ export const enemyUsecase = {
 
 // 仮初期値
 export const enemyInfo = {
-  enemyFirstPos_x: 2000,
+  enemyFirstPos_x: 1500,
   enemySpeed: 5,
   enemyRadius: 20,
   enemyHp: 10,
-  makeEnemyFrequency: 5000,
+  makeEnemyFrequency: 1000,
   enemySize: { h: 30, w: 30 },
 };
 
@@ -48,7 +48,7 @@ const createEnemy = async () => {
     speed: enemyInfo.enemySpeed,
     hp: enemyInfo.enemyHp,
     radius: enemyInfo.enemyRadius,
-    type: 2,
+    type: Math.floor(Math.random() * 4) + 1,
     ///1-3のランダムな数値を返す
     /* type: Math.floor(Math.random() * 3) + 1, */
   };

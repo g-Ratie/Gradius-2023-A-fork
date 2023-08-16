@@ -1,7 +1,9 @@
 import type { EnemyModel, PlayerModel } from '$/commonTypesWithClient/models';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Circle, Layer, Rect, Stage, Text } from 'react-konva';
+import { Image, Layer, Rect, Stage, Text } from 'react-konva';
+import { staticPath } from 'src/utils/$path';
 import { apiClient } from 'src/utils/apiClient';
+import useImage from 'use-image';
 
 const Game = ({ monitorId }: { monitorId: number }) => {
   const windowWidth = Number(window.innerWidth);
@@ -11,6 +13,9 @@ const Game = ({ monitorId }: { monitorId: number }) => {
   const [newPlayerPosition, setNewPlayerPosition] = useState<PlayerModel[]>([]);
   const [newGunPosition, setNewGunPosition] = useState<number[][]>([]);
   const [newEnemyPosition, setNewEnemyPosition] = useState<EnemyModel[]>([]);
+  const [shipImage] = useImage(staticPath.f_15j_png);
+  const [enemyImage] = useImage(staticPath.enemy_png);
+  const [bulletImage] = useImage(staticPath.bullet_png);
   //apiを叩いてプレイヤーと銃敵の位置を取得stateにセット
   const getPosition = useCallback(async () => {
     const new_playerPosition = await apiClient.rooms.control.$get();
@@ -19,7 +24,6 @@ const Game = ({ monitorId }: { monitorId: number }) => {
 
     ///当たり判定を行う
     checkCollision(new_enemyPosition, new_gunPosition);
-    // checkCollision(new_enemyPosition, new_playerPosition);//一次的にコメントアウトしています。
 
     setNewPlayerPosition(new_playerPosition);
     setNewGunPosition(new_gunPosition);
@@ -27,7 +31,7 @@ const Game = ({ monitorId }: { monitorId: number }) => {
   }, []);
   //仮の当たり判定関数
   const checkCollision = (hitlist1: EnemyModel[], hitlist2: number[][]) => {
-    const list2Radius = 20; // list2 の固定の半径
+    const list2Radius = 15; // list2 の固定の半径
 
     hitlist1.map((list1) => {
       hitlist2.map((list2: number[]) => {
@@ -80,13 +84,13 @@ const Game = ({ monitorId }: { monitorId: number }) => {
 
         {newPlayerPosition.map((player, index) => (
           <>
-            <Circle
+            <Image
+              image={shipImage}
               key={index}
               x={player.pos.x - monitorId * windowWidth}
               y={player.pos.y}
               width={50}
               height={50}
-              fill="red"
             />
             <Text
               x={player.pos.x - monitorId * windowWidth - 23}
@@ -99,23 +103,24 @@ const Game = ({ monitorId }: { monitorId: number }) => {
           </>
         ))}
         {newGunPosition.map((gun, index) => (
-          <Circle
+          <Image
+            image={bulletImage}
             key={index}
             radius={10}
             x={gun[0] - monitorId * windowWidth}
             y={gun[1]}
-            fill="green"
+            rotationDeg={-90}
           />
         ))}
         {newEnemyPosition.map((enemy, index) => (
           <React.Fragment key={index}>
-            <Circle
+            <Image
+              image={enemyImage}
               key={index}
               x={enemy.pos.x - monitorId * windowWidth}
               y={enemy.pos.y - monitorId * windowWidth}
               width={50}
               height={50}
-              fill="blue"
             />
             <Text
               x={enemy.pos.x - monitorId * windowWidth}
