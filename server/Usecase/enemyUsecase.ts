@@ -23,7 +23,7 @@ export const enemyUsecase = {
 
 // 仮初期値
 export const enemyInfo = {
-  enemyFirstPos_x: 2000,
+  enemyFirstPos_x: 100,
   enemySpeed: 5,
   enemyRadius: 20,
   enemyHp: 10,
@@ -32,7 +32,7 @@ export const enemyInfo = {
 };
 
 setInterval(() => {
-  createEnemy();
+  create_enemy();
   deleteOffScreenEnemy();
 }, enemyInfo.makeEnemyFrequency);
 
@@ -41,11 +41,11 @@ setInterval(() => {
   moveEnemy();
 }, 10);
 
-const createEnemy = async () => {
+const create_enemy = async () => {
   const newEnemy: EnemyModel = {
     id: EnemyIdParser.parse(randomUUID()),
     pos: { x: enemyInfo.enemyFirstPos_x, y: Math.floor(Math.random() * 690) + 1 },
-    speed: enemyInfo.enemySpeed,
+    speed: enemyInfo.enemyHp,
     hp: enemyInfo.enemyHp,
     radius: enemyInfo.enemyRadius,
     type: 2,
