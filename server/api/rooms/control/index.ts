@@ -1,9 +1,9 @@
 import type { MoveDirection } from '$/Usecase/playerUsecase';
-import type { PlayerModel } from '$/commonTypesWithClient/models';
+import type { playerModel } from '$/commonTypesWithClient/models';
 
 export type Methods = {
   get: {
-    resBody: PlayerModel[];
+    resBody: playerModel[];
   };
   post: {
     reqBody: { moveDirection: MoveDirection; userId: UserId };

@@ -8,7 +8,7 @@ const Game = ({ monitorId }: { monitorId: number }) => {
   const windowHeight = Number(window.innerHeight);
 
   //プレイヤーと弾敵をstateで管理
-  const [newPlayerPosition, setNewPlayerPosition] = useState<PlayerModel[]>([]);
+  const [newPlayerPosition, setNewPlayerPosition] = useState<playerModel[]>([]);
   const [newGunPosition, setNewGunPosition] = useState<number[][]>([]);
   const [newEnemyPosition, setNewEnemyPosition] = useState<EnemyModel[]>([]);
   //apiを叩いてプレイヤーと銃敵の位置を取得stateにセット
