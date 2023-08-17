@@ -2,6 +2,7 @@
 import type { MoveDirection } from '$/Usecase/playerUsecase';
 
 import type { UserId } from '$/commonTypesWithClient/branded';
+import type { PlayerModel } from '$/commonTypesWithClient/models';
 import { UserIdParser } from '$/service/idParsers';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -24,12 +25,10 @@ const Home = () => {
     UserIdParser.parse(localStorage.getItem('userId'))
   );
   const router = useRouter();
+  const [player, setPlayer] = useState<PlayerModel | null>(null);
 
-  if (localStorage.getItem('userId') === null) {
-    router.push('/gradiusLogin');
-  }
-
-  const getsize = () => {
+  const getsize = async () => {
+    if (userId === null) return;
     if (joystickRef.current !== null) {
       // joystickRef.currentがnullでないことをチェック
       const windowData = {
@@ -38,13 +37,17 @@ const Home = () => {
       };
       setWindowSize(windowData);
     }
+    const player = await apiClient.rooms.$post({
+      body: { userId },
+    });
+    setPlayer(player);
   };
   useEffect(() => {
     const cance = setInterval(getsize, 100);
     return () => {
       clearInterval(cance);
     };
-  }, []);
+  }, [getsize]);
 
   const shoot = async () => {
     if (userId === null) return;
@@ -78,7 +81,7 @@ const Home = () => {
     <>
       <div className={styles.container}>
         <div className={styles.info}>
-          <p>スコア:</p>
+          <p>スコア:{player?.score}</p>
         </div>
         <div ref={joystickRef} className={styles.joystick}>
           <Joystick

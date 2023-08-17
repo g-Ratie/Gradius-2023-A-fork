@@ -72,6 +72,17 @@ export const playerUsecase = {
     };
     await playerRepository.save(updatePlayerInfo);
   },
+  addScorePlayer: async () => {
+    const recentlyPlayersInfo = await playerUsecase.getAllPlayer();
+
+    recentlyPlayersInfo.forEach(async (player) => {
+      const updatePlayerInfo: PlayerModel = {
+        ...player,
+        score: player.score + 100,
+      };
+      await playerRepository.save(updatePlayerInfo);
+    });
+  },
 
   getAllPlayer: async (): Promise<PlayerModel[]> => {
     return await playerRepository.getPlayers();

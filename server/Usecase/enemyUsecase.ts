@@ -4,7 +4,7 @@ import type { EnemyModel } from '$/commonTypesWithClient/models';
 
 import { EnemyIdParser } from '$/service/idParsers';
 import { randomUUID } from 'crypto';
-import { position } from './playerUsecase';
+import { playerUsecase, position } from './playerUsecase';
 
 //敵の位置を取得する際にこれを使えば、全ての敵の情報が配列で返されます
 //repositoryからgetEnemiesを直接たたくとusecaseがなぜか更新されないため1時的な回避策としてusecaseをapiでたたいて認識させてます
@@ -15,6 +15,7 @@ export const enemyUsecase = {
   deleteEnemy: async (id: EnemyId) => {
     try {
       await enemyRepository.declare(id);
+      await playerUsecase;
     } catch (e) {
       console.log(e);
     }
@@ -23,11 +24,11 @@ export const enemyUsecase = {
 
 // 仮初期値
 export const enemyInfo = {
-  enemyFirstPos_x: 1500,
-  enemySpeed: 5,
+  enemyFirstPos_x: 3000,
+  enemySpeed: 2,
   enemyRadius: 20,
   enemyHp: 10,
-  makeEnemyFrequency: 1000,
+  makeEnemyFrequency: 3000,
   enemySize: { h: 30, w: 30 },
 };
 

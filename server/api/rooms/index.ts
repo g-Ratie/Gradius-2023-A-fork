@@ -1,5 +1,10 @@
+import type { PlayerModel } from '$/commonTypesWithClient/models';
+import type { UserId } from './../../commonTypesWithClient/branded';
 export type Methods = {
-  get: {
-    resBody: string;
+  post: {
+    reqBody: {
+      userId: UserId;
+    };
+    resBody: PlayerModel;
   };
 };
